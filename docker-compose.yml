@@ -1,7 +1,7 @@
 
 services:
   waha:
-    image: devlikeapro/waha-plus:latest
+    build: ./waha-custom-build
     container_name: waha-ventas
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
       - WHATSAPP_SWAGGER_PASSWORD=1234567
 
   n8n:
-    image: n8nio/n8n:latest
+    build: ./n8n-custom-build
     container_name: n8n-ventas
     restart: always
     ports:
