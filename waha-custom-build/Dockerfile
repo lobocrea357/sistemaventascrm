@@ -1,5 +1,5 @@
 # Utiliza la imagen oficial de waha como base
-FROM devlikeapro/waha-plus:latest
+FROM devlikeapro/waha:latest
 
 # Cambia al usuario root para poder instalar paquetes o realizar cambios
 USER root
