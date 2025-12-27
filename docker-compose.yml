@@ -1,0 +1,28 @@
+
+services:
+  waha:
+    image: devlikeapro/waha-plus:latest
+    container_name: waha-ventas
+    restart: always
+    ports:
+      - "3333:3000"
+    volumes:
+      - ./waha-data:/app/sessions
+    environment:
+      - WHATSAPP_DEFAULT_ENGINE=WEBJS
+      - WAHA_DASHBOARD_USERNAME=admin
+      - WAHA_DASHBOARD_PASSWORD=1234567
+      - WAHA_API_KEY=waha_api_key_9f8e7d6c5b4a3210fedcba9876543210
+      - WHATSAPP_SWAGGER_USERNAME=admin
+      - WHATSAPP_SWAGGER_PASSWORD=1234567
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n-ventas
+    restart: always
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+    environment:
+      - GENERIC_TIMEZONE=America/Caracas
