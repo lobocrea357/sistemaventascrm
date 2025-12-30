@@ -1,19 +1,17 @@
-# Utiliza la imagen oficial de n8n como base
 FROM n8nio/n8n:latest
 
-# Crea un directorio para los nodos personalizados
-WORKDIR /home/node/.n8n/custom
-
-# Copia primero el package.json para aprovechar el cache de Docker
-COPY n8n-data/nodes/package.json .
-
-# Cambia al usuario root para instalar dependencias
 USER root
-RUN npm install
 
-# Copia el resto de los archivos de nodos (si tienes)
-# Si no tienes archivos .js/.ts en n8n-data/nodes/, puedes borrar la siguiente línea
-COPY n8n-data/nodes/ .
+# Instalamos solo lo necesario para compilar paquetes de Node nativos
+# 'build-base' y 'git' son vitales si algun dia haces npm install de algo complejo
+# 'graphicsmagick' sirve si usas el nodo de edición de imágenes de n8n
+RUN apk add --update --no-cache \
+    build-base \
+    git \
+    graphicsmagick
 
-# Vuelve al usuario 'node' por seguridad
+# (Opcional) Instala aquí las librerías de npm que quieras disponibles globalmente
+# Ejemplo: si usas mucho axios, moment o exceljs en tus funciones
+RUN npm install -g axios moment exceljs
+
 USER node
