@@ -5,7 +5,7 @@ FROM n8nio/n8n:latest
 WORKDIR /home/node/.n8n/custom
 
 # Copia tu package.json al directorio de trabajo
-COPY package.json .
+COPY ../n8n-data/nodes/package.json .
 
 # Cambia al usuario root para instalar los nodos
 USER root
