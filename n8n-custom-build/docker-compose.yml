@@ -1,0 +1,20 @@
+services:
+  n8n:
+    build: .                # Usa tu Dockerfile de la carpeta actual
+    container_name: n8n-ventas
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=America/Caracas
+      - TZ=America/Caracas
+      # Habilita todos los módulos para tus scripts y nodos custom
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+    volumes:
+      - n8n_data:/home/node/.n8n
+      # (Opcional) Carpeta local para pasar archivos fácilmente
+      - ./archivos_locales:/files
+
+volumes:
+  n8n_data:
