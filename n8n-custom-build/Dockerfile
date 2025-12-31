@@ -1,15 +1,15 @@
-FROM n8nio/n8n:latest
+# Forzamos la versión basada en Alpine (cambia 'latest' por esta etiqueta)
+FROM n8nio/n8n:1.77.2-alpine
 
 USER root
 
-# Usamos apt-get en lugar de apk
-RUN apt-get update && apt-get install -y \
-    build-essential \
+# Ahora sí funcionará apk
+RUN apk add --update --no-cache \
+    build-base \
     git \
-    graphicsmagick \
-    && rm -rf /var/lib/apt/lists/*
+    graphicsmagick
 
-# Instalamos las librerías de Node globales
+# Librerías de Node
 RUN npm install -g axios moment exceljs
 
 USER node
