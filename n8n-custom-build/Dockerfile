@@ -2,16 +2,14 @@ FROM n8nio/n8n:latest
 
 USER root
 
-# Instalamos solo lo necesario para compilar paquetes de Node nativos
-# 'build-base' y 'git' son vitales si algun dia haces npm install de algo complejo
-# 'graphicsmagick' sirve si usas el nodo de edición de imágenes de n8n
-RUN apk add --update --no-cache \
-    build-base \
+# Usamos apt-get en lugar de apk
+RUN apt-get update && apt-get install -y \
+    build-essential \
     git \
-    graphicsmagick
+    graphicsmagick \
+    && rm -rf /var/lib/apt/lists/*
 
-# (Opcional) Instala aquí las librerías de npm que quieras disponibles globalmente
-# Ejemplo: si usas mucho axios, moment o exceljs en tus funciones
+# Instalamos las librerías de Node globales
 RUN npm install -g axios moment exceljs
 
 USER node
